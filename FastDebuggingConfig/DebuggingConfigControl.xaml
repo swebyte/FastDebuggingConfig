@@ -11,13 +11,15 @@
     <Grid Height="60">
         <StackPanel Height="60" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel Height="26" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label Content="WorkingDirectory" Width="114"/>
-                <TextBox Name="textboxwd" Height="26" TextChanged="TextBox_TextChanged_WD" TextWrapping="Wrap" Text="" Width="186" BorderBrush="Black" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Label Content="WorkingDirectory" Foreground="{DynamicResource VsBrush.WindowText}" Width="124"/>
+                <TextBox Name="textboxwd" Height="20" Background="{DynamicResource VsBrush.Window}" TextChanged="TextBox_TextChanged_WD" Width="174" BorderBrush="Black"/>
             </StackPanel>
-            <StackPanel Height="26" Orientation="Horizontal" Margin="0,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label Content="CommandLineArgs" Width="114"/>
-                <TextBox Name="textboxcla" Height="26" TextChanged="TextBox_TextChanged_CLA" TextWrapping="Wrap" Text="" Width="186" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Black"/>
+            <StackPanel Height="26" Orientation="Horizontal" Margin="0,1,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Label Content="CommandArguments" Foreground="{DynamicResource VsBrush.WindowText}" Width="124"/>
+                <TextBox Name="textboxcla" Height="20" Background="{DynamicResource VsBrush.Window}" TextChanged="TextBox_TextChanged_CLA" Width="174" BorderBrush="Black" Margin="0,3"/>
             </StackPanel>
         </StackPanel>
     </Grid>
+
+
 </UserControl>

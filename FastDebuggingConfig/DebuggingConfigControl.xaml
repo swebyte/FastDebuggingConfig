@@ -11,11 +11,11 @@
     <Grid Height="60">
         <StackPanel Height="60" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel Height="26" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label Content="WorkingDirectory" Foreground="{DynamicResource VsBrush.WindowText}" Width="124"/>
+                <Label Content="WorkingDirectory" Foreground="{DynamicResource VsBrush.WindowText}" Width="127"/>
                 <TextBox Name="textboxwd" Height="20" Background="{DynamicResource VsBrush.Window}" TextChanged="TextBox_TextChanged_WD" Width="174" BorderBrush="Black"/>
             </StackPanel>
             <StackPanel Height="26" Orientation="Horizontal" Margin="0,1,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label Content="CommandArguments" Foreground="{DynamicResource VsBrush.WindowText}" Width="124"/>
+                <Label Content="CommandArguments" Foreground="{DynamicResource VsBrush.WindowText}" Width="127"/>
                 <TextBox Name="textboxcla" Height="20" Background="{DynamicResource VsBrush.Window}" TextChanged="TextBox_TextChanged_CLA" Width="174" BorderBrush="Black" Margin="0,3"/>
             </StackPanel>
         </StackPanel>

@@ -31,8 +31,7 @@ namespace FastDebuggingConfig
             solutionEvents.Opened += new _dispSolutionEvents_OpenedEventHandler(SolutionEvents_Opened);
 
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = 1000;
-            aTimer.Enabled = true;
+            aTimer.Enabled = false;
         }
 
         private static DTE2 GetDTE2()
@@ -41,6 +40,11 @@ namespace FastDebuggingConfig
         }
 
         private void SolutionEvents_Opened()
+        {
+            UpdateTextBoxes();
+        }
+
+        private void UpdateTextBoxes()
         {
             Project startupProj = GetStartUpProject();
             if (startupProj != null)
@@ -82,6 +86,7 @@ namespace FastDebuggingConfig
         {
             isWD = true;
             currentWriting = textboxwd.Text;
+            aTimer.Interval = 1000;
             aTimer.Start();
         }
 
@@ -89,6 +94,7 @@ namespace FastDebuggingConfig
         {
             isWD = false;
             currentWriting = textboxcla.Text;
+            aTimer.Interval = 1000;
             aTimer.Start();
         }
 
@@ -159,6 +165,11 @@ namespace FastDebuggingConfig
                     configuration.Properties.Item("StartWorkingDirectory").Value = value;
                 }
             }
+        }
+
+        private void Grid_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            UpdateTextBoxes();
         }
     }
 }

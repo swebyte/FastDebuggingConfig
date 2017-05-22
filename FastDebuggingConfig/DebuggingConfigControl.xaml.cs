@@ -16,9 +16,12 @@ namespace FastDebuggingConfig
     using System.Windows.Controls;
     public partial class DebuggingConfigControl : UserControl
     {
-        private System.Timers.Timer aTimer = new System.Timers.Timer();
-        private bool isWD = false;
-        private string currentWriting = "";
+        private System.Timers.Timer wdTimer = new System.Timers.Timer();
+        private System.Timers.Timer caTimer = new System.Timers.Timer();
+
+        private string currentWorkingDirectory = "";
+        private string currentCommandArguments = "";
+
 
         private IVsSolution _solution;
         private SolutionEvents solutionEvents;
@@ -30,8 +33,11 @@ namespace FastDebuggingConfig
             solutionEvents = GetDTE2().Events.SolutionEvents;
             solutionEvents.Opened += new _dispSolutionEvents_OpenedEventHandler(SolutionEvents_Opened);
 
-            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Enabled = false;
+            wdTimer.Elapsed += new ElapsedEventHandler(OnTimedEventWD);
+            wdTimer.Enabled = false;
+
+            caTimer.Elapsed += new ElapsedEventHandler(OnTimedEventCA);
+            caTimer.Enabled = false;
         }
 
         private static DTE2 GetDTE2()
@@ -62,40 +68,36 @@ namespace FastDebuggingConfig
                 else
                 {
                     Configuration configuration = startupProj.ConfigurationManager.ActiveConfiguration;
-                    textboxwd.Text = configuration.Properties.Item("StartArguments").Value.ToString();
-                    textboxcla.Text = configuration.Properties.Item("StartWorkingDirectory").Value.ToString();
+                    textboxwd.Text = configuration.Properties.Item("StartWorkingDirectory").Value.ToString();
+                    textboxcla.Text = configuration.Properties.Item("StartArguments").Value.ToString();
                 }
             }
         }
 
-        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        private void OnTimedEventWD(object source, ElapsedEventArgs e)
         {
-            if(isWD)
-            {
-                SetWorkingDirectory(currentWriting);
-            }
-            else
-            {
-                SetCommandArguments(currentWriting);
-            }
+            SetWorkingDirectory(currentWorkingDirectory);
+            wdTimer.Stop();
+        }
 
-            aTimer.Stop();
+        private void OnTimedEventCA(object source, ElapsedEventArgs e)
+        {
+            SetCommandArguments(currentCommandArguments);
+            caTimer.Stop();
         }
 
         private void TextBox_TextChanged_WD(object sender, TextChangedEventArgs e)
         {
-            isWD = true;
-            currentWriting = textboxwd.Text;
-            aTimer.Interval = 1000;
-            aTimer.Start();
+            currentWorkingDirectory = textboxwd.Text;
+            wdTimer.Interval = 1000;
+            wdTimer.Start();
         }
 
         private void TextBox_TextChanged_CLA(object sender, TextChangedEventArgs e)
         {
-            isWD = false;
-            currentWriting = textboxcla.Text;
-            aTimer.Interval = 1000;
-            aTimer.Start();
+            currentCommandArguments = textboxcla.Text;
+            caTimer.Interval = 1000;
+            caTimer.Start();
         }
 
         private Project GetStartUpProject()
